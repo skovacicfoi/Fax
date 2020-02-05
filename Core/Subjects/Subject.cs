@@ -11,6 +11,5 @@ namespace Core.Subjects
         public int Semester { get; set; }
         public List<PartOfSubject> Parts { get; set; }
         public Schedule Schedule { get; set; }
-        //Smoki
     }
 }
