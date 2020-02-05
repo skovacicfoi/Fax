@@ -15,6 +15,7 @@ namespace Core
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //sasaass
             optionsBuilder.UseSqlServer(
                     "Server = (localdb)\\mssqllocaldb;" +
             "Database = Faksistent;" +
