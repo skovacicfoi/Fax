@@ -13,13 +13,15 @@ namespace Application
     {
         private readonly FaxDbContext _faxDbContext;
         public ISubjectsRepository Subjects { get; private set; }
+        public ISchedulesRepository Schedules { get; private set; }
         public UserManager<User> Users { get; private set; }
 
-        public UnitOfWork(FaxDbContext faxDbContext, UserManager<User> userManager, ISubjectsRepository subjectsRepository)
+        public UnitOfWork(FaxDbContext faxDbContext, UserManager<User> userManager)
         {
             _faxDbContext = faxDbContext;
             Users = userManager;
-            Subjects = subjectsRepository;
+            Subjects = new SubjectsRepository(faxDbContext);
+            Schedules = new SchedulesRepository(faxDbContext);
         }
 
         public void Complete()

@@ -1,7 +1,9 @@
-﻿using Core.Interfaces;
+﻿using Core.Faculties;
+using Core.Interfaces;
 using Core.Subjects;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Core
@@ -16,8 +18,7 @@ namespace Core
         //[Required]
         public string LastName { get; set; }
         public int Semester { get; set; }
-
-        public Schedule Schedule { get; set; }
+        public List<Schedule> Schedules { get; set; }
 
     }
 }

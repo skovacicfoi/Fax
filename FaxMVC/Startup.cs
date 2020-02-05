@@ -39,10 +39,10 @@ namespace FaxMVC
 
             services.AddDbContext<FaxDbContext>(cfg =>
             {
-                cfg.UseSqlServer("Server=(localdb)\\mssqllocaldb; Database=Faksistent; Trusted_Connection=True;");
+                cfg.UseSqlServer(Configuration["ConnectionString:CoreConnectionStringSmoki"]);
             }
-               );
-
+            );
+        
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {

@@ -4,14 +4,16 @@ using Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Core.Migrations
 {
     [DbContext(typeof(FaxDbContext))]
-    partial class FaxDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200205214108_FacultyAdded")]
+    partial class FacultyAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,7 +21,7 @@ namespace Core.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Core.Faculties.Faculty", b =>
+            modelBuilder.Entity("Core.Faculty.Faculty", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,10 +33,10 @@ namespace Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Faculties");
+                    b.ToTable("Faculty");
                 });
 
-            modelBuilder.Entity("Core.Faculties.StudyProgram", b =>
+            modelBuilder.Entity("Core.Faculty.StudyProgram", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,7 +59,7 @@ namespace Core.Migrations
 
                     b.HasIndex("FacultyId");
 
-                    b.ToTable("StudyPrograms");
+                    b.ToTable("StudyProgram");
                 });
 
             modelBuilder.Entity("Core.Subjects.Exam", b =>
@@ -122,15 +124,10 @@ namespace Core.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("StudyProgramId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("StudyProgramId");
 
                     b.HasIndex("UserId");
 
@@ -158,21 +155,6 @@ namespace Core.Migrations
                     b.HasIndex("ScheduleId");
 
                     b.ToTable("Subjects");
-                });
-
-            modelBuilder.Entity("Core.Subjects.SubjectStudyProgram", b =>
-                {
-                    b.Property<int>("StudyProgramId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.HasKey("StudyProgramId", "SubjectId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("SubjectStudyPrograms");
                 });
 
             modelBuilder.Entity("Core.Subjects.SubjectTimeOfTeaching", b =>
@@ -255,6 +237,9 @@ namespace Core.Migrations
                     b.Property<int>("Semester")
                         .HasColumnType("int");
 
+                    b.Property<int?>("StudyProgramId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -271,6 +256,8 @@ namespace Core.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("StudyProgramId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -406,9 +393,9 @@ namespace Core.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Core.Faculties.StudyProgram", b =>
+            modelBuilder.Entity("Core.Faculty.StudyProgram", b =>
                 {
-                    b.HasOne("Core.Faculties.Faculty", "Faculty")
+                    b.HasOne("Core.Faculty.Faculty", "Faculty")
                         .WithMany("StudyPrograms")
                         .HasForeignKey("FacultyId");
                 });
@@ -429,10 +416,6 @@ namespace Core.Migrations
 
             modelBuilder.Entity("Core.Subjects.Schedule", b =>
                 {
-                    b.HasOne("Core.Faculties.StudyProgram", "StudyProgram")
-                        .WithMany("StudentSchedules")
-                        .HasForeignKey("StudyProgramId");
-
                     b.HasOne("Core.User", "User")
                         .WithMany("Schedules")
                         .HasForeignKey("UserId");
@@ -445,26 +428,18 @@ namespace Core.Migrations
                         .HasForeignKey("ScheduleId");
                 });
 
-            modelBuilder.Entity("Core.Subjects.SubjectStudyProgram", b =>
-                {
-                    b.HasOne("Core.Faculties.StudyProgram", "StudyProgram")
-                        .WithMany("Subjects")
-                        .HasForeignKey("StudyProgramId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Subjects.Subject", "Subject")
-                        .WithMany("StudyPrograms")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Core.Subjects.SubjectTimeOfTeaching", b =>
                 {
                     b.HasOne("Core.Subjects.PartOfSubject", "PartOfSubject")
                         .WithMany("TimesOfTeaching")
                         .HasForeignKey("PartOfSubjectId");
+                });
+
+            modelBuilder.Entity("Core.User", b =>
+                {
+                    b.HasOne("Core.Faculty.StudyProgram", "StudyProgram")
+                        .WithMany("Students")
+                        .HasForeignKey("StudyProgramId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

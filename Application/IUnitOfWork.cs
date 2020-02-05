@@ -9,6 +9,7 @@ namespace Application
     {
         UserManager<User> Users { get; }
         ISubjectsRepository Subjects { get; }
+        ISchedulesRepository Schedules { get; }
         void Complete();
     }
 }

@@ -4,61 +4,22 @@ using Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Core.Migrations
 {
     [DbContext(typeof(FaxDbContext))]
-    partial class FaxDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200205211450_Antonio7")]
+    partial class Antonio7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Core.Faculties.Faculty", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Faculties");
-                });
-
-            modelBuilder.Entity("Core.Faculties.StudyProgram", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("FacultyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FacultyId");
-
-                    b.ToTable("StudyPrograms");
-                });
 
             modelBuilder.Entity("Core.Subjects.Exam", b =>
                 {
@@ -122,15 +83,10 @@ namespace Core.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("StudyProgramId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("StudyProgramId");
 
                     b.HasIndex("UserId");
 
@@ -158,21 +114,6 @@ namespace Core.Migrations
                     b.HasIndex("ScheduleId");
 
                     b.ToTable("Subjects");
-                });
-
-            modelBuilder.Entity("Core.Subjects.SubjectStudyProgram", b =>
-                {
-                    b.Property<int>("StudyProgramId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.HasKey("StudyProgramId", "SubjectId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("SubjectStudyPrograms");
                 });
 
             modelBuilder.Entity("Core.Subjects.SubjectTimeOfTeaching", b =>
@@ -406,13 +347,6 @@ namespace Core.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Core.Faculties.StudyProgram", b =>
-                {
-                    b.HasOne("Core.Faculties.Faculty", "Faculty")
-                        .WithMany("StudyPrograms")
-                        .HasForeignKey("FacultyId");
-                });
-
             modelBuilder.Entity("Core.Subjects.Exam", b =>
                 {
                     b.HasOne("Core.Subjects.PartOfSubject", "PartOfSubject")
@@ -429,10 +363,6 @@ namespace Core.Migrations
 
             modelBuilder.Entity("Core.Subjects.Schedule", b =>
                 {
-                    b.HasOne("Core.Faculties.StudyProgram", "StudyProgram")
-                        .WithMany("StudentSchedules")
-                        .HasForeignKey("StudyProgramId");
-
                     b.HasOne("Core.User", "User")
                         .WithMany("Schedules")
                         .HasForeignKey("UserId");
@@ -443,21 +373,6 @@ namespace Core.Migrations
                     b.HasOne("Core.Subjects.Schedule", "Schedule")
                         .WithMany("Subjects")
                         .HasForeignKey("ScheduleId");
-                });
-
-            modelBuilder.Entity("Core.Subjects.SubjectStudyProgram", b =>
-                {
-                    b.HasOne("Core.Faculties.StudyProgram", "StudyProgram")
-                        .WithMany("Subjects")
-                        .HasForeignKey("StudyProgramId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Subjects.Subject", "Subject")
-                        .WithMany("StudyPrograms")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Core.Subjects.SubjectTimeOfTeaching", b =>

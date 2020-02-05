@@ -20,9 +20,7 @@ html{
 }
 
 #sideBarNav {
-    width: 0px;
     height: 100%;
-    position: absolute;
     transition: 0.3s;
     background-color: #33363B;
 }
@@ -68,5 +66,12 @@ html{
 .change .bar3 {
     -webkit-transform: rotate(45deg) translate(-8px, -8px);
     transform: rotate(45deg) translate(-8px, -8px);
+}
+
+.navigation{
+    height:50px;
+    background-color:red;
+    margin:0;
+    padding:0;
 }
 
