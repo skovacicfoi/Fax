@@ -7,5 +7,6 @@ namespace Core.Interfaces
 {
     public interface IUserStudyProgramRepository : IRepository<UserStudyProgram>
     {
+        IEnumerable<StudyProgram> GetAllStudyProgramsByUser(User user);
     }
 }

@@ -8,6 +8,5 @@ namespace Core.Interfaces
 {
     public interface IStudyProgramRepository : IRepository<StudyProgram>
     {
-        Task<List<StudyProgram>> GetStudyProgramUsers(User user);
     }
 }

@@ -24,7 +24,7 @@ namespace Application
             Users = userManager;
             Subjects = new SubjectsRepository(faxDbContext);
             Schedules = new SchedulesRepository(faxDbContext);
-            StudyPrograms = new StudyProgramRepository(faxDbContext, this);
+            StudyPrograms = new StudyProgramRepository(faxDbContext);
             UserStudyPrograms = new UserStudyProgramRepository(faxDbContext);
         }
 
