@@ -8,6 +8,7 @@ namespace Core.Faculties
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string University { get; set; }
         public List<StudyProgram> StudyPrograms { get; set; }
     }
 }

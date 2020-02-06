@@ -9,7 +9,9 @@ namespace Application
     {
         UserManager<User> Users { get; }
         ISubjectsRepository Subjects { get; }
+        IStudyProgramRepository StudyPrograms { get; }
         ISchedulesRepository Schedules { get; }
+        IUserStudyProgramRepository UserStudyPrograms { get; }
         void Complete();
     }
 }

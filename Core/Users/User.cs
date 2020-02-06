@@ -19,6 +19,7 @@ namespace Core
         public string LastName { get; set; }
         public int Semester { get; set; }
         public List<Schedule> Schedules { get; set; }
+        public List<UserStudyProgram> StudyPrograms { get; set; }
 
     }
 }

@@ -23,8 +23,7 @@ namespace Core
         public DbSet<StudyProgram> StudyPrograms { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<SubjectStudyProgram> SubjectStudyPrograms { get; set; }
-
-
+        public DbSet<UserStudyProgram> UserStudyPrograms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,6 +42,22 @@ namespace Core
                 .HasOne<Subject>(sc => sc.Subject)
                 .WithMany(s => s.StudyPrograms)
                 .HasForeignKey(sc => sc.SubjectId);
+
+
+
+            modelBuilder.Entity<UserStudyProgram>()
+         .HasKey(bc => new { bc.StudyProgramId, bc.UserId });
+
+            modelBuilder.Entity<UserStudyProgram>()
+            .HasOne<StudyProgram>(sp => sp.StudyProgram)
+            .WithMany(s => s.Students)
+            .HasForeignKey(sc => sc.StudyProgramId);
+
+
+            modelBuilder.Entity<UserStudyProgram>()
+                .HasOne<User>(sc => sc.User)
+                .WithMany(s => s.StudyPrograms)
+                .HasForeignKey(sc => sc.UserId);
 
         }
 

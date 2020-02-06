@@ -1,0 +1,17 @@
+﻿@model FaxMVC.Models.Faculties.StudyProgramViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<div class="container">
+    @foreach (var sp in Model.StudyPrograms)
+    {
+        <div class="offset-1 col-md-3 bg-dark">
+            <p>@sp.Name</p>
+        </div>
+    }
+    <div class="offset-1 col-md-3 bg-dark">
+        <p>Add new study program</p>
+    </div>
+</div>

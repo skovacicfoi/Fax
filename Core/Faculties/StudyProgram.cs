@@ -14,6 +14,7 @@ namespace Core.Faculties
         public Faculty Faculty { get; set; }
         public List<Schedule> StudentSchedules { get; set; }
         public List<SubjectStudyProgram> Subjects { get; set; }
+        public List<UserStudyProgram> Students { get; set; }
 
     }
 }
