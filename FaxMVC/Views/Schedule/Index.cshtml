@@ -1,7 +1,13 @@
-﻿
+﻿@model FaxMVC.Models.Schedules.GenerateEventsModel
+
 @{
     ViewData["Title"] = "Index";
 }
+
+
+    <head>
+        <link href="~/css/Scheduler.css" rel="stylesheet" />
+    </head>
 
 <div class="navigation container">
     <ul class="list-unstyled">
@@ -12,28 +18,86 @@
         </li>
     </ul>
 </div>
+
 @* stanka vraza 7, quatro stagione *@
-<div class="container-fluid" style=":0; height:500px; margin-top:30px; position:relative; background-color:teal">
-    <div style="position:relative; float:left; height:100%; width:20%; background-color:green; margin:0; padding:0;">
+<div id="Schedule" class="container-fluid" style="padding:0; height:500px; margin-top:30px; position:relative;">
 
-    </div>
 
-    <div style="position:relative; float:left; height:100%; width:20%; background-color:beige; margin:0; padding:0;">
+    <div class="scheduler-column">
+        <div class="day-name"></div>
 
-    </div>
-
-    <div style="position:relative; float:left; height:100%; width:20%; background-color:red; margin:0; padding:0;">
-
-    </div>
-
-    <div style="position:relative; float:left; height:100%; width:20%; background-color:black; margin:0; padding:0;">
-
-    </div>
-
-    <div style="position:relative; float:left; height:100%; width:20%; background-color:pink; margin:0; padding:0;">
-        <div style="background-color:black; position:relative; top:4%; height:12%">
+        <div id="scheduler-hours" >
 
         </div>
     </div>
+
+    <div class="scheduler-column">
+        <div class="day-name">
+            Ponedjeljak
+        </div>
+
+        <div class="EventsContainer" id="Monday">
+
+        </div>
+    </div>
+
+
+    <div class="scheduler-column">
+        <div class="day-name">
+            Utorak
+        </div>
+
+        <div class="EventsContainer" id="Tuesday">
+
+        </div>
+    </div>
+
+    <div class="scheduler-column">
+        <div class="day-name">
+            Srijeda
+        </div>
+
+        <div class="EventsContainer" id="Wednesday">
+
+        </div>
+    </div>
+
+    <div class="scheduler-column">
+        <div class="day-name">
+            Četvrtak
+        </div>
+
+        <div class="EventsContainer" id="Thursday">
+
+        </div>
+    </div>
+
+    <div class="scheduler-column">
+        <div class="day-name">
+            Smoki ima mali penis
+        </div>
+
+        <div class="EventsContainer" id="Friday">
+
+        </div>
+    </div>
+
+    @*<div style="position:relative; float:left; height:100%; width:20%; background-color:pink; margin:0; padding:0;">
+            <div style="background-color:black; position:relative; top:4%; height:12%">
+
+            </div>
+        </div>*@
+
+    <script src="~/js/Scheduler.js"></script>
+
+
+    <script type="text/javascript">
+
+        InsertHoursColumn();
+        GenerateEvents('@Model.Json');
+
+    </script>
+
+
 </div>
 

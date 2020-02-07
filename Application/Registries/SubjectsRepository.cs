@@ -23,5 +23,20 @@ namespace Application.Registries
                 .Include(s => s.Parts)
                     .ThenInclude(p => p.Exams);
         }
+
+        public IEnumerable<SubjectTimeOfTeaching> GetAllSubjectsTimeOfTeachings()
+        {
+            var subjects =  _faxDbContext.Subjects.Include(s => s.Parts).ThenInclude(tt => tt.TimesOfTeaching);
+            foreach (var subject in subjects)
+            {
+                foreach (var part in subject.Parts)
+                {
+                    foreach (var timeOfTeaching in part.TimesOfTeaching)
+                    {
+                        yield return timeOfTeaching;
+                    }
+                }
+            }
+        }
     }
 }

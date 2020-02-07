@@ -20,6 +20,8 @@ using Application;
 using Application.Services;
 using Microsoft.OpenApi.Models;
 using Application.Registries;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace FaxMVC
 {
@@ -36,13 +38,15 @@ namespace FaxMVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+               
             services.AddDbContext<FaxDbContext>(cfg =>
             {
-                cfg.UseSqlServer(Configuration["ConnectionString:CoreConnectionStringSmoki"]);
+                cfg.UseSqlServer(Configuration["ConnectionString:CoreConnectionStringStipe"]);
             }
             );
-        
+
+            
+
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
@@ -98,6 +102,7 @@ namespace FaxMVC
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
