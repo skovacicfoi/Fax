@@ -15,11 +15,10 @@
 
 #schedule {
     padding: 0;
-    height: 70VH;
+    height: 90vh;
     margin: auto;
     position: relative;
-    width: 90%;
-    top: 50px;
+    width: 100%;
     background-color: white;
     box-shadow: 4px 4px 10px #cecece;
 }
