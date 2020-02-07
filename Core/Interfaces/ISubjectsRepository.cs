@@ -8,5 +8,6 @@ namespace Core.Interfaces
     public interface ISubjectsRepository : IRepository<Subject>
     {
         IEnumerable<Subject> GetAllWithPartsOfSubject();
+        IEnumerable<SubjectTimeOfTeaching> GetAllSubjectsTimeOfTeachings();
     }
 }

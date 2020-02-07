@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application;
+using Core.Subjects;
 using FaxMVC.Models.Schedules;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace FaxMVC.Controllers
 {
@@ -17,7 +19,19 @@ namespace FaxMVC.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+
+            var jsonSerializerSettings = new JsonSerializerSettings
+            {
+                PreserveReferencesHandling = PreserveReferencesHandling.None,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+            List<SubjectTimeOfTeaching> events = _unitOfWork.Subjects.GetAllSubjectsTimeOfTeachings().ToList();
+            GenerateEventsModel model = new GenerateEventsModel { Events = events, Json = JsonConvert.SerializeObject(events, jsonSerializerSettings) };
+
+            var json = JsonConvert.SerializeObject(events, jsonSerializerSettings);
+            
+
+            return View(model);
         }
 
         public IActionResult Create(CreateScheduleModel model)
