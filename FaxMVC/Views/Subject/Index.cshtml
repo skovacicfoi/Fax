@@ -1,0 +1,38 @@
+﻿@model FaxMVC.Models.Subjects.SubjectTemplateViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Subject Templates</h3>
+<div class="container-fluid">
+    <form action="/Form" method="post">
+        <button type="submit" class="btn btn-primary offset-4 col-md-3"
+                asp-controller="Subject" asp-action="Create" style="height:50px;" >Create new subject template</button>
+    </form>
+    
+</div>
+
+
+<div class="container-fluid">
+    <table class="table offset-1 col-md-9">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Semester</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int n = 1;}
+            @foreach (var st in Model.SubjectTemplates)
+            {
+                <tr>
+                    <th scope="row">@n</th>
+                    <td>@st.Name</td>
+                    <td>@st.Semester</td>
+                </tr>
+                n++;
+            }
+        </tbody>
+    </table>
+</div>

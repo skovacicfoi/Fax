@@ -1,17 +1,30 @@
-﻿@model FaxMVC.Models.Schedules.CreateScheduleModel
+﻿@model FaxMVC.Models.Subjects.CreateSubjectTemplateModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h3>Create new subject template</h3>
 
 <div class="container-fluid col-md-6 offset-3">
 
 
     <form action="/Form" method="post">
-        <h1>Create schedule</h1>
+        <h1>Create subject template</h1>
+
+        <label for="name"><b>Name</b></label>
+        <input type="text" asp-for="Name" placeholder="Enter Name" required>
 
         <label for="number"><b>Semester</b></label>
         <input type="number" asp-for="Semester" placeholder="Enter Semester" required>
 
+        @foreach (var i in Model.partOfSubjectNames)
+        {
+            <input type="checkbox" name="@i" value="@i">@i<br>
+        }
+
         <select asp-for="StudyProgramId"
                 asp-items="@(new SelectList(Model.StudyPrograms,"Id","Name"))">
-            <option>New study program</option>
+            <option>Select study program</option>
         </select>
 
         <button type="submit" class="registerbtn" asp-controller="Schedule" asp-action="Create">Create</button>
@@ -20,4 +33,3 @@
 
 
 </div>
-

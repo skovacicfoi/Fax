@@ -12,6 +12,7 @@ namespace Application
         IStudyProgramRepository StudyPrograms { get; }
         ISchedulesRepository Schedules { get; }
         IUserStudyProgramRepository UserStudyPrograms { get; }
+        ISubjectTemplateRepository SubjectTemplates { get; }
         void Complete();
     }
 }

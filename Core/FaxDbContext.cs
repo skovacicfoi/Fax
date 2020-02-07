@@ -24,13 +24,14 @@ namespace Core
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<SubjectStudyProgram> SubjectStudyPrograms { get; set; }
         public DbSet<UserStudyProgram> UserStudyPrograms { get; set; }
+        public DbSet<SubjectTemplate> SubjectTemplates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<SubjectStudyProgram>()
-         .HasKey(bc => new { bc.StudyProgramId, bc.SubjectId });
+         .HasKey(bc => new { bc.StudyProgramId, bc.SubjectTemplateId });
 
             modelBuilder.Entity<SubjectStudyProgram>()
             .HasOne<StudyProgram>(sp => sp.StudyProgram)
@@ -39,9 +40,9 @@ namespace Core
 
 
             modelBuilder.Entity<SubjectStudyProgram>()
-                .HasOne<Subject>(sc => sc.Subject)
+                .HasOne<SubjectTemplate>(sc => sc.SubjectTemplate)
                 .WithMany(s => s.StudyPrograms)
-                .HasForeignKey(sc => sc.SubjectId);
+                .HasForeignKey(sc => sc.SubjectTemplateId);
 
 
 
