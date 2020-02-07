@@ -113,17 +113,25 @@ function InsertHoursColumn() {
     var hoursColumn = document.getElementById("scheduler-hours");
     console.log(hoursColumn);
 
-    var numMins = numOfHours * 60;
+    var numMins = (numOfHours) * 60;
     var minuteHeight = 100 / numMins;
 
     for (var i = 0; i < numOfHours; i++) {
 
         var newHour = document.createElement("div"); 
         newHour.setAttribute("class", "day-time");
-        newHour.textContent = +firstHour + i;
+
+        if (+firstHour + i < 10) {
+        newHour.textContent = +"0"+firstHour + i + ":00h";
+
+        }
+        else {
+            newHour.textContent = +firstHour + i + ":00h";
+        }
+
         hoursColumn.appendChild(newHour);
         newHour.style.top = ((+i * 60) * minuteHeight) + "%";
-        newHour.style.height = (100 / numOfHours) + "%";
+        newHour.style.height = (minuteHeight * 60) + "%";
     }
 
 }
