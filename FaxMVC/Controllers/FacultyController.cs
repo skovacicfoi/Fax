@@ -26,15 +26,49 @@ namespace FaxMVC.Controllers
             //Ovo ce definitivno radit sa new User()
             var user = await _userManager.FindByNameAsync("Smoki");
 
-            List<StudyProgram> studyPrograms =
+            List<StudyProgram> userStudyPrograms = 
                 _unitOfWork.UserStudyPrograms.GetAllStudyProgramsByUser(user).ToList();
+            
+            var sp = await _unitOfWork.StudyPrograms.GetAll();
+            List<StudyProgram> studyPrograms = sp.ToList();
 
             StudyProgramViewModel model = new StudyProgramViewModel
             {
+                UserStudyPrograms = userStudyPrograms,
                 StudyPrograms = studyPrograms
             };
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync(StudyProgramViewModel model)
+        {
+            var user = await _userManager.FindByNameAsync("Smoki");
+            var sp = await _unitOfWork.StudyPrograms.GetById(model.StudyProgramId);
+            UserStudyProgram usp = new UserStudyProgram
+            {
+                UserId = user.Id,
+                StudyProgramId = model.StudyProgramId,
+            };
+            await _unitOfWork.UserStudyPrograms.Add(usp);
+            _unitOfWork.Complete();
+            return View("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteAsync(StudyProgramViewModel model)
+        {
+            var user = await _userManager.FindByNameAsync("Smoki");
+            var sp = await _unitOfWork.StudyPrograms.GetById(model.StudyProgramId);
+            UserStudyProgram usp = new UserStudyProgram
+            {
+                UserId = user.Id,
+                StudyProgramId = model.StudyProgramId,
+            };
+            await _unitOfWork.UserStudyPrograms.Delete(usp);
+            _unitOfWork.Complete();
+            return View("Index");
         }
     }
 }

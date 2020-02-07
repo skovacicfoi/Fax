@@ -67,6 +67,9 @@
             <li>
                 <a class="nav-link text-light" asp-area="" asp-controller="Faculty" asp-action="Index">Study programs</a>
             </li>
+            <li>
+                <a class="nav-link text-light" asp-area="" asp-controller="Schedule" asp-action="Create">Create schedule</a>
+            </li>
             @if (!User.Identity.IsAuthenticated)
             {
                 <li>

@@ -4,14 +4,27 @@
 }
 
 <h1>Index</h1>
-<div class="container">
-    @foreach (var sp in Model.StudyPrograms)
+<div class="container-fluid align-items-center">
+    @foreach (var sp in Model.UserStudyPrograms)
     {
-        <div class="offset-1 col-md-3 bg-dark">
-            <p>@sp.Name</p>
+        <div class="bg-light"
+             style="position:relative; float:left; height:200px; width:20%; padding:20px; margin:20px;">
+            <form asp-controller="Faculty" asp-action="Delete" method="post">
+                <input hidden type="text" asp-for="StudyProgramId" value="@sp.Id" required minlength="2">
+                <p>@sp.Faculty.Name</p>
+                <p>@sp.Name</p>
+                <input type="submit" value="Delete" />
+            </form>
         </div>
     }
-    <div class="offset-1 col-md-3 bg-dark">
+    <div class="bg-light" style="position:relative; float:left; height:200px; width:20%; padding:20px; margin:20px;">
         <p>Add new study program</p>
+        <form asp-controller="Faculty" asp-action="Create" method="post">
+            <select asp-for="StudyProgramId"
+                    asp-items="@(new SelectList(Model.StudyPrograms,"Id","Name"))">
+                <option>New study program</option>
+            </select>
+            <input type="submit" />
+        </form>
     </div>
 </div>

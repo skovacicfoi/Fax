@@ -21,6 +21,7 @@ namespace Application.Registries
             var userSP = _faxDbContext.UserStudyPrograms
                 .Include(usp => usp.User)
                 .Include(usp => usp.StudyProgram)
+                .ThenInclude(usp => usp.Faculty)
                 .Where(usp => usp.User == user);
 
             foreach (var usp in userSP)

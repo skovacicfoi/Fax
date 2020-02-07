@@ -1,6 +1,7 @@
 ﻿using Core;
 using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -20,7 +21,7 @@ namespace Application.Registries
         }
         public async Task<bool> Add(TEntity entity)
         {
-            await _faxDbContext.AddAsync(entity);
+            var result = await _faxDbContext.AddAsync(entity);
             return true;
         }
 
@@ -39,7 +40,7 @@ namespace Application.Registries
             return await _faxDbContext.Set<TEntity>().ToListAsync();
         }
 
-        public async Task<TEntity> GetById(TEntity id)
+        public async Task<TEntity> GetById(int id)
         {
             return await _faxDbContext.Set<TEntity>().FindAsync(id);
         }
