@@ -9,5 +9,7 @@ namespace Core.Interfaces
     {
         IEnumerable<Subject> GetAllWithPartsOfSubject();
         IEnumerable<SubjectTimeOfTeaching> GetAllSubjectsTimeOfTeachings();
+        IEnumerable<Subject> GetAllBySchedule(int scheduleId);
+        IEnumerable<PartOfSubject> GetAllParts(int subjectId);
     }
 }

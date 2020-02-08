@@ -4,6 +4,7 @@ using Core.Subjects;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,16 @@ namespace Application.Registries
                     }
                 }
             }
+        }
+
+        public IEnumerable<Subject> GetAllBySchedule(int scheduleId)
+        {
+            return _faxDbContext.Subjects.Where(s => s.Schedule.Id == scheduleId);
+        }
+
+        public IEnumerable<PartOfSubject> GetAllParts(int subjectId)
+        {
+            return _faxDbContext.PartOfSubjects.Where(p => p.Subject.Id == subjectId);
         }
     }
 }

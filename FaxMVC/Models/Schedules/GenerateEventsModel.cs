@@ -13,6 +13,7 @@ namespace FaxMVC.Models.Schedules
     {
         public List<SubjectTimeOfTeaching> Events = new List<SubjectTimeOfTeaching>();
         public Schedule Schedule { get; set; }
+        public SubjectTimeOfTeaching NewEvent { get; set; }
         public IEnumerable<Schedule> UserSchedules { get; set; }
         public string Json { get; set; }
     }

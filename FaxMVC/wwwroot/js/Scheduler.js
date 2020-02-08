@@ -14,15 +14,13 @@ function ClearColumns() {
 }
 
 function GetEvents() {
-    console.log("s");
     var id = select.options[select.selectedIndex].value;
-    console.log(id);
+
     $.ajax({
         type: "GET",
         dataType: "json",
         url: "https://localhost:44315/api/EventsApi/" + id,
         success: function (data) {
-            console.log(data);
             ClearColumns();
             GenerateEvents(data);
         },

@@ -92,6 +92,15 @@
 <form action="/Form" method="post" id="add-new-event">
     <h1>Dodaj nastavu</h1>
 
+    <select id="subjectPicker" onchange="GetPartsOfSubject(this)"></select>
+
+    <select id="partsPicker" ></select>
+
+
+    <label for="email"><b>Username</b></label>
+    <input type="text" asp-for="NewEvent" placeholder="Enter Username" required>
+
+    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
     <button type="submit" class="registerbtn" asp-controller="User" asp-action="Register">Register</button>
 
     @foreach (var modelErrors in ViewData.ModelState)
@@ -112,6 +121,7 @@
 <script src="~/js/Scheduler.js"></script>
 <script src="~/js/Scheduler/AddEventPopUp.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/Scheduler/GetSubjectParts.js"></script>
 
 <script type="text/javascript">
 
