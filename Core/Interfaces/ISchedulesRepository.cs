@@ -7,5 +7,7 @@ namespace Core.Interfaces
 {
     public interface ISchedulesRepository : IRepository<Schedule>
     {
+        IEnumerable<Schedule> GetAllByUser(User user);
+        Schedule GetWithSubjects(int id);
     }
 }

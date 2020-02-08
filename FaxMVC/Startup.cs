@@ -37,13 +37,23 @@ namespace FaxMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-               
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+            {
+                // Use the default property (Pascal) casing
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+
+                options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.None;
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+
             services.AddDbContext<FaxDbContext>(cfg =>
             {
                 cfg.UseSqlServer(Configuration["ConnectionString:CoreConnectionStringStipe"]);
             }
             );
+
+
+
 
             
 

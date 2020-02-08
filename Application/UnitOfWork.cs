@@ -17,6 +17,7 @@ namespace Application
         public UserManager<User> Users { get; private set; }
         public IStudyProgramRepository StudyPrograms { get; private set; }
         public IUserStudyProgramRepository UserStudyPrograms { get; private set; }
+        public IPartTimesOfTeachingRepository TeachingTimes { get; private set; }
 
         public UnitOfWork(FaxDbContext faxDbContext, UserManager<User> userManager)
         {
@@ -26,6 +27,7 @@ namespace Application
             Schedules = new SchedulesRepository(faxDbContext);
             StudyPrograms = new StudyProgramRepository(faxDbContext);
             UserStudyPrograms = new UserStudyProgramRepository(faxDbContext);
+            TeachingTimes = new PartsTimeOfTeachingRepository(faxDbContext);
         }
 
         public void Complete()

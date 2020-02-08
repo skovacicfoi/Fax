@@ -7,6 +7,7 @@
 
 <head>
     <link href="~/css/Scheduler.css" rel="stylesheet" />
+
 </head>
 
 
@@ -15,7 +16,9 @@
 
 <div id="schedule">
     <div id="schedule-header">
+        <button type="button" class="btn btn-info" id="toggleForm">Dodaj nastavu</button>
 
+        <select asp-for="Schedule" asp-items="@(new SelectList(Model.UserSchedules,"Id","Id"))" id="schedulePicker" onchange="GetEvents()"></select>
     </div>
 
     <div id="schedule-body">
@@ -79,16 +82,45 @@
     </div>
 
 
-    <script src="~/js/Scheduler.js"></script>
+</div>
 
-
-    <script type="text/javascript">
-
-        InsertHoursColumn();
-        GenerateEvents('@Model.Json');
-
-    </script>
-
+@* Popup for adding new event *@
+<div id="overlay">
 
 </div>
+
+<form action="/Form" method="post" id="add-new-event">
+    <h1>Dodaj nastavu</h1>
+
+    <button type="submit" class="registerbtn" asp-controller="User" asp-action="Register">Register</button>
+
+    @foreach (var modelErrors in ViewData.ModelState)
+    {
+        @foreach (var error in modelErrors.Value.Errors)
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    }
+</form>
+
+
+
+
+
+
+@* Scripts *@
+<script src="~/js/Scheduler.js"></script>
+<script src="~/js/Scheduler/AddEventPopUp.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+    InsertHoursColumn();
+    $(document).ready(function () {
+        GetEvents();
+    });
+
+</script>
+
+
 

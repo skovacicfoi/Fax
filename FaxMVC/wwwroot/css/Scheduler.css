@@ -1,27 +1,30 @@
 ﻿#schedule-body {
-    width:100%;
-    position:relative;
-    margin:0;
-    padding:0;
-    height:85%;
+    width: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 85%;
 }
 
 #schedule-header {
     height: 15%;
     width: 100%;
     box-shadow: 0 8px 6px -6px #cecece;
-    margin-bottom:2px;
+    margin-bottom: 2px;
+    border: 1px solid #dddddd;
 }
 
 #schedule {
     padding: 0;
-    height: 90vh;
+    height: calc(90vh - 60px);
     margin: auto;
     position: relative;
-    width: 100%;
+    width: 90%;
     background-color: white;
-    box-shadow: 4px 4px 10px #cecece;
+    box-shadow: 10px 10px 10px #cecece;
+    top: 40px;
 }
+
 
 .EventsContainer {
     position: relative;
@@ -68,9 +71,9 @@
     border-width: 1px;
 }
 
-.hours-column{
-    width:5%;
-    font-size:10em;
+.hours-column {
+    width: 5%;
+    font-size: 10em;
 }
 
 #scheduler-hours {
@@ -80,3 +83,37 @@
     margin: 0;
     padding: 0;
 }
+
+/*Add new event popup*/
+#add-new-event {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background-color: white;
+    border: 2px solid black;
+    width: 30%;
+    height: 30%;
+    transition: 200ms ease-in-out;
+}
+
+    #add-new-event.active {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+#overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: 200ms ease-in-out;
+}
+
+    #overlay.active {
+        opacity: 1;
+        pointer-events: all;
+    }

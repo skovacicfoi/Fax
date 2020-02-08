@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application;
 using Core.Subjects;
 using FaxMVC.Models.Schedules;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -17,7 +18,8 @@ namespace FaxMVC.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
 
             var jsonSerializerSettings = new JsonSerializerSettings
@@ -25,8 +27,22 @@ namespace FaxMVC.Controllers
                 PreserveReferencesHandling = PreserveReferencesHandling.None,
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             };
+
+            //treba promijeniti da traži logiranog usera
+            var user = await _unitOfWork.Users.FindByNameAsync("sljunac");
+
             List<SubjectTimeOfTeaching> events = _unitOfWork.Subjects.GetAllSubjectsTimeOfTeachings().ToList();
-            GenerateEventsModel model = new GenerateEventsModel { Events = events, Json = JsonConvert.SerializeObject(events, jsonSerializerSettings) };
+
+            //dodat default property na schedule i odabrat onog koji je postavljen
+            var schedule = _unitOfWork.Schedules.GetAllByUser(user).FirstOrDefault();
+
+            //Treba promijenit da traži po logiranom useru ne hardkodanom
+            GenerateEventsModel model = new GenerateEventsModel
+            { Events = events,
+                Json = JsonConvert.SerializeObject(events, jsonSerializerSettings),
+                UserSchedules = _unitOfWork.Schedules.GetAllByUser(user),
+                Schedule = schedule
+            };
 
             var json = JsonConvert.SerializeObject(events, jsonSerializerSettings);
             

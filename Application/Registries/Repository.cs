@@ -39,7 +39,7 @@ namespace Application.Registries
             return await _faxDbContext.Set<TEntity>().ToListAsync();
         }
 
-        public async Task<TEntity> GetById(TEntity id)
+        public async Task<TEntity> GetById(int id)
         {
             return await _faxDbContext.Set<TEntity>().FindAsync(id);
         }

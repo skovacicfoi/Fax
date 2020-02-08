@@ -1,4 +1,15 @@
-﻿#header {
-    background-color: #212121;
+﻿.header-logo {
+    background-color: #FF510F;
     height: 60px;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+}
+
+.header-nav {
+    width: calc(100% - 250px);
+    background-color: white;
+    border-bottom: 1px solid #dddddd;
+    position: relative;
+    left: 250px;
 }
